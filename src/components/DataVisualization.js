@@ -37,17 +37,15 @@ const DataVisualization = () => {
 
     // Set up WebSocket connection
     socket.current = new WebSocket('ws://localhost:3001'); // Replace with your WebSocket server URL
-
     socket.current.onmessage = (event) => {
       const newLog = JSON.parse(event.data);
-      debugger
       setLogs(prevLogs => [...prevLogs, newLog]); // Append new log to existing logs
       toast.success('New log entry received');
     };
 
-    // return () => {
-    //   socket.current.close();
-    // };
+    return () => {
+      socket.current.close();
+    };
   }, []);
 
   const moodCounts = {
